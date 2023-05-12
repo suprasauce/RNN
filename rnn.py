@@ -2,7 +2,7 @@ import utils
 import numpy as np
 
 class rnn:
-    def __init__(self, num_input: int, num_hidden: int, num_output: int, alpha = 0.02):
+    def __init__(self, num_input: int, num_hidden: int, num_output: int, alpha = 0.005):
         self.alpha = alpha
         self.num_input = num_input
         self.num_hidden = num_hidden
@@ -84,7 +84,5 @@ class rnn:
     def total_loss_of_one_series(self, Y):
         loss = 0.0
         for i in range(self.o_time_steps.shape[0]):
-            loss -= np.log2(self.o_time_steps[i][Y[i]])
-        return loss
-   
-    
+            loss -= np.log(self.o_time_steps[i][Y[i]])
+        return loss / len(Y)

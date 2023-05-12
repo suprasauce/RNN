@@ -40,20 +40,23 @@ if __name__ == '__main__':
     # i am doing SGD, with 3 layers (in, hidden, out)
     num_input_nodes = len(vocabulary)
     num_output_nodes = len(vocabulary)
-    num_hidden_nodes = int((2*num_input_nodes/3) + num_output_nodes)
+    num_hidden_nodes = 50
     model = rnn(num_input_nodes, num_hidden_nodes, num_output_nodes)
 
-    epochs = 1000
+    epochs = 10
     losses = []
     while epochs:
+        print(f'curr epoch = {epochs}')
         curr_epoch_loss = 0.0
         for i in range(len(X)):
             model.forward(X[i])
-            curr_epoch_loss += model.total_loss_of_one_series(Y[i])
+            curr_example_loss = model.total_loss_of_one_series(Y[i]) 
+            curr_epoch_loss += curr_example_loss   
+            print(f'curr example loss = {curr_example_loss}')       
             model.backward(X[i], Y[i])        
-
-        print(curr_epoch_loss)
-        losses.append(curr_epoch_loss)
+        curr_epoch_loss /= len(X)
+        print(f'curr epoch loss = {curr_epoch_loss}')
+        losses.append(curr_epoch_loss / len(X))
         epochs -= 1
 
     print(losses)
