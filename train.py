@@ -56,7 +56,7 @@ if __name__ == '__main__':
             model.backward(X[i], Y[i])        
         curr_epoch_loss /= len(X)
         print(f'curr epoch loss = {curr_epoch_loss}')
-        losses.append(curr_epoch_loss / len(X))
+        losses.append(curr_epoch_loss)
         epochs -= 1
 
     print(losses)
