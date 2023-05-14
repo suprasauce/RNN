@@ -1,4 +1,5 @@
 from rnn import rnn
+import pickle
 import nltk
 
 if __name__ == '__main__':
@@ -43,7 +44,7 @@ if __name__ == '__main__':
     num_hidden_nodes = 50
     model = rnn(num_input_nodes, num_hidden_nodes, num_output_nodes)
 
-    epochs = 10
+    epochs = 1
     losses = []
     while epochs:
         print(f'curr epoch = {epochs}')
@@ -52,12 +53,17 @@ if __name__ == '__main__':
             model.forward(X[i])
             curr_example_loss = model.total_loss_of_one_series(Y[i]) 
             curr_epoch_loss += curr_example_loss   
-            print(f'curr example loss = {curr_example_loss}')       
+            #print(f'curr example loss = {curr_example_loss}')       
             model.backward(X[i], Y[i])        
         curr_epoch_loss /= len(X)
         print(f'curr epoch loss = {curr_epoch_loss}')
         losses.append(curr_epoch_loss)
         epochs -= 1
+
+    pickle.dump(model, open('model.pkl', 'wb'))
+    
+    # load the model
+    # pickled_model = pickle.load(open('model.pkl', 'rb'))
 
     print(losses)
 
