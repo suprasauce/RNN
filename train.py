@@ -16,12 +16,14 @@ if __name__ == '__main__':
     sentence with the index of the word from vocabulary dict
     '''    
     vocabulary = {}
+    index_to_word = {}
     
     curr = 0
     for i in tokenized_sentences:
         for j in i:
             if vocabulary.get(j) == None:
                 vocabulary[j] = curr
+                index_to_word[curr] = j
                 curr += 1
     
     X = []
@@ -42,9 +44,10 @@ if __name__ == '__main__':
     num_input_nodes = len(vocabulary)
     num_output_nodes = len(vocabulary)
     num_hidden_nodes = 50
-    model = rnn(num_input_nodes, num_hidden_nodes, num_output_nodes)
+    model = rnn(num_input_nodes, num_hidden_nodes, num_output_nodes, 0.005)
+    # model = pickle.load(open('model.pkl', 'rb'))
 
-    epochs = 1
+    epochs = 200
     losses = []
     while epochs:
         print(f'curr epoch = {epochs}')
@@ -53,18 +56,12 @@ if __name__ == '__main__':
             model.forward(X[i])
             curr_example_loss = model.total_loss_of_one_series(Y[i]) 
             curr_epoch_loss += curr_example_loss   
-            #print(f'curr example loss = {curr_example_loss}')       
+            #print(f'curr example loss = {curr_example_loss}')   
             model.backward(X[i], Y[i])        
         curr_epoch_loss /= len(X)
         print(f'curr epoch loss = {curr_epoch_loss}')
         losses.append(curr_epoch_loss)
         epochs -= 1
 
-    pickle.dump(model, open('model.pkl', 'wb'))
-    
-    # load the model
-    # pickled_model = pickle.load(open('model.pkl', 'rb'))
-
-    print(losses)
-
+        pickle.dump(model, open('model.pkl', 'wb'))
     
