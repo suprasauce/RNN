@@ -53,15 +53,31 @@ if __name__ == '__main__':
         print(f'curr epoch = {epochs}')
         curr_epoch_loss = 0.0
         for i in range(len(X)):
-            model.forward(X[i])
-            curr_example_loss = model.total_loss_of_one_series(Y[i]) 
-            curr_epoch_loss += curr_example_loss   
-            #print(f'curr example loss = {curr_example_loss}')   
-            model.backward(X[i], Y[i])        
+            curr_index = 0
+            itr = 0
+            curr_mini_loss = 0.0
+            while curr_index  < len(X[i]):
+                end_index = min(len(X[i]), curr_index + model.truncate)
+                curr_input = X[i][curr_index:end_index]
+                curr_expected_ouput = Y[i][curr_index: end_index]
+                model.forward(X[i][curr_index:end_index])
+                curr_mini_loss += model.total_loss_of_one_series(curr_expected_ouput) 
+                # print(curr_mini_loss)
+                curr_index += 1
+                itr += 1
+                model.backward(curr_input, curr_expected_ouput)        
+
+            curr_example_loss = curr_mini_loss / itr
+            print(f'curr_example_loss = {curr_example_loss}')
+            curr_epoch_loss += curr_example_loss
+
+        
         curr_epoch_loss /= len(X)
         print(f'curr epoch loss = {curr_epoch_loss}')
-        losses.append(curr_epoch_loss)
+        losses.append([epochs, curr_epoch_loss])
         epochs -= 1
 
         pickle.dump(model, open('model.pkl', 'wb'))
+        pickle.dump(losses, open('losses.pkl', 'wb'))
+        
     

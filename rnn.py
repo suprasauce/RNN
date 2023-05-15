@@ -7,6 +7,7 @@ class rnn:
         self.num_input = num_input
         self.num_hidden = num_hidden
         self.num_output = num_output
+        self.truncate = 4
         self.w_hx = np.random.uniform(-np.sqrt(1./self.num_input), np.sqrt(1./num_input), (num_hidden, num_input))
         self.w_hh = np.random.uniform(-np.sqrt(1./self.num_hidden), np.sqrt(1./num_hidden), (num_hidden, num_hidden))
         self.w_oh = np.random.uniform(-np.sqrt(1./self.num_hidden), np.sqrt(1./num_hidden), (num_output, num_hidden))
