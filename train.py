@@ -47,7 +47,7 @@ if __name__ == '__main__':
     model = rnn(num_input_nodes, num_hidden_nodes, num_output_nodes, 0.005)
     # model = pickle.load(open('model.pkl', 'rb'))
 
-    epochs = 200
+    epochs = 100
     losses = []
     while epochs:
         print(f'curr epoch = {epochs}')
@@ -79,5 +79,8 @@ if __name__ == '__main__':
 
         pickle.dump(model, open('model.pkl', 'wb'))
         pickle.dump(losses, open('losses.pkl', 'wb'))
+
+        pickle.dump(model, open('backup_model.pkl', 'wb'))
+        pickle.dump(losses, open('backup_losses.pkl', 'wb'))
         
     

@@ -77,6 +77,9 @@ class rnn:
         self.w_oh -= (self.alpha*self.dLdw_oh)
         self.w_hx -= (self.alpha*self.dLdw_hx)
         self.w_hh -= (self.alpha*self.dLdw_hh)
+
+    def predict(self):
+        return np.argmax(self.o_time_steps[-1])
             
     def loss_t(self):
         pass
