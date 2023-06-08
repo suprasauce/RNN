@@ -47,7 +47,7 @@ if __name__ == '__main__':
     model = rnn(num_input_nodes, num_hidden_nodes, num_output_nodes, 0.005)
     # model = pickle.load(open('model.pkl', 'rb'))
 
-    epochs = 100
+    epochs = 200
     losses = []
     while epochs:
         print(f'curr epoch = {epochs}')
@@ -68,7 +68,7 @@ if __name__ == '__main__':
                 model.backward(curr_input, curr_expected_ouput)        
 
             curr_example_loss = curr_mini_loss / itr
-            print(f'curr_example_loss = {curr_example_loss}')
+            # print(f'curr_example_loss = {curr_example_loss}')
             curr_epoch_loss += curr_example_loss
 
         
