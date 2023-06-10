@@ -12,7 +12,7 @@ def rec(curr_path):
         if splitext(curr_path)[-1] == '.scala':
             f = open(curr_path)
             content = f.read().strip()
-            content += '\n\n'
+            content += '\nEOF\n'
             dataset += content
             f.close()
             files += 1
