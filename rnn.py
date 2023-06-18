@@ -8,7 +8,7 @@ class rnn:
         self.num_input = num_input
         self.num_hidden = num_hidden
         self.num_output = num_output
-        self.truncate = 10000
+        self.truncate = 10000 # this large val implies, no truncation is being done
         self.w_hx = np.random.randn(self.num_hidden, self.num_input)*0.01
         self.w_hh = np.random.randn(self.num_hidden, self.num_hidden)*0.01
         self.w_hh1 = np.random.randn(self.num_hidden, self.num_hidden)*0.01
@@ -91,7 +91,9 @@ class rnn:
         
 
     def predict(self):
-        return np.argmax(self.o_time_steps[-1])
+        pred = self.o_time_steps[-1].ravel()
+        index = np.random.choice(range(self.num_output), p = pred)
+        return index
             
     def loss_t(self):
         pass
@@ -102,7 +104,3 @@ class rnn:
         for i in range(self.o_time_steps.shape[0]):
             loss -= np.log(self.o_time_steps[i][Y[i]])
         return loss / len(Y)
-
-    
-    
-    
