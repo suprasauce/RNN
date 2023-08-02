@@ -1,7 +1,7 @@
-from rnn import rnn
 import rnn_config as config
 import numpy as np
 import pickle
+from lstm import rnn
 
 class train_class:
     def __init__(self, load) -> None:
@@ -39,6 +39,7 @@ class train_class:
             iter = 1
             while True:
                 x, y, curr_index, run = self.get_example(curr_index, iter)
+                # print(x,y)
                 if run == False:
                     break
                 self.model.forward(x)
@@ -47,7 +48,7 @@ class train_class:
                     loss = self.model.total_loss_of_one_context(y)
                     print('-------------------------------')
                     print(f'epoch = {i}, example = {iter}, loss = {loss}')
-                    # self.sample(400, 'def')
+                    self.sample(50, 'I ')
                     print('-------------------------------')
                     self.save_model(loss)
                 iter += 1
@@ -60,7 +61,7 @@ class train_class:
                 return [], [], 0, False
             return self.tokenize(self.dataset[s:e]), self.tokenize(self.dataset[s+1:e+1]), s, True
         else:
-            s = curr_index + np.random.randint(config.CONTEXT_LENGTH/2, config.CONTEXT_LENGTH + 1)
+            s = curr_index + np.random.randint(config.CONTEXT_LENGTH/10, config.CONTEXT_LENGTH/5 + 1)
             e = s + config.CONTEXT_LENGTH
             if e > len(self.dataset)-1:
                 return [], [], 0, False
@@ -74,6 +75,6 @@ class train_class:
 
 if __name__ == '__main__':
     train = train_class(True)
-    # train.run(100)
+    train.run(100)
     # train.sample(1000,'stat')
-    print(len(train.dataset))
+    # print(len(train.dataset))
