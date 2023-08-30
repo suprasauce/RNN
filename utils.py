@@ -1,13 +1,7 @@
-import numpy as np
+import torch
 
 def softmax(x):
-    numerator = np.exp(x)
-    denominator = np.sum(numerator)
-    res = numerator / denominator
-    return res
-
-def sigmoid(x):
-    numerator = 1
-    denominator = 1 + np.exp(-x) 
+    numerator = torch.exp(x)
+    denominator = torch.sum(numerator)
     res = numerator / denominator
     return res
