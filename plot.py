@@ -15,8 +15,9 @@ def plot(rnn_type):
     plt.legend()
     plt.xlabel("epochs")
     plt.ylabel("loss")
+    plt.title(rnn_type)
     plt.savefig(f'plots/{rnn_type}.png')
     plt.show()
 
 if __name__ == "__main__":
-    plot("gru")
+    plot("vanilla")

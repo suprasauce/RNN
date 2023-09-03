@@ -22,9 +22,9 @@ def generate(seed, n, id_to_char: dict, char_to_id: dict):
         n -= 1
 
 if __name__ == "__main__":
-    # vanilla = 10_21000_0.21578331291675568
-    # lstm = 10_30709_0.16114439070224762
-    # gru = 10_30000_0.4583747088909149
+    vanilla = "vanilla/10_21000_0.21578331291675568.pkl"
+    lstm = "lstm/10_30709_0.16114439070224762.pkl"
+    gru = "gru/10_30000_0.4583747088909149.pkl"
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -37,5 +37,5 @@ if __name__ == "__main__":
     char_to_id = {k:v for v, k in enumerate(vocab)}
     id_to_char = {k:v for k, v in enumerate(vocab)}
     
-    model = pickle.load(open('models/gru/10_30000_0.4583747088909149.pkl', 'rb'))
+    model = pickle.load(open(f'models/{gru}', 'rb'))
     generate("I am a very", 1000, id_to_char, char_to_id) # use I am very only show diffe between lstm and rnn
