@@ -1,5 +1,7 @@
 from config import *
-import vanilla
+# import vanilla
+import gru
+# import lstm
 import torch
 import random
 import pickle
@@ -14,7 +16,7 @@ def make_dataset(dataset, char_to_id):
   random.shuffle(training_data)
 
   # 80:20 ratio for training and validation split
-  return training_data[:int(0.85*len(training_data))], training_data[int(0.85*len(training_data)):]
+  return training_data[:int(0.95*len(training_data))], training_data[int(0.95*len(training_data)):]
 
 def get_validation_loss(dataset):
   loss = 0.
@@ -27,8 +29,11 @@ def get_validation_loss(dataset):
     
   return loss / len(dataset)
 
+
+
 if __name__ == '__main__':
   device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+  rnn_type = "gru"
 
   # prepare training data
   dataset = ''
@@ -37,15 +42,15 @@ if __name__ == '__main__':
 
   vocab = sorted(list(set(dataset)))
   char_to_id = {k:v for v, k in enumerate(vocab)}
-  id_to_char = {v:k for k, v in enumerate(vocab)}
+  id_to_char = {k:v for k, v in enumerate(vocab)}
   training_data, validation_data = make_dataset(dataset, char_to_id)
 
   # initialize model here
-  model = vanilla.rnn(len(vocab), HIDDEN_NEURONS, ALPHA, device)
+  model = gru.rnn(len(vocab), HIDDEN_NEURONS, ALPHA, device)
 
   epoch_loss = []
   epoch_validation_loss = []
-  EPOCHS = 20
+  EPOCHS = 10
 
   for epoch in range(1, EPOCHS+1):
 
@@ -72,7 +77,7 @@ if __name__ == '__main__':
         if iter % 1000 == 0:
           curr_validation_loss = get_validation_loss(validation_data)
           print(f"epoch = {epoch}, iter = {iter}, loss = {hundred_loss}, validation_loss = {curr_validation_loss}")
-          pickle.dump(model, open(f'models/vanilla/{epoch}_{iter}_{curr_validation_loss}.pkl', 'wb'))
+          pickle.dump(model, open(f'models/{rnn_type}/{epoch}_{iter}_{curr_validation_loss}.pkl', 'wb'))
         else:
           print(f"epoch = {epoch}, iter = {iter}, loss = {hundred_loss}")
 
@@ -86,9 +91,9 @@ if __name__ == '__main__':
     epoch_loss.append(curr_epoch_loss)
     epoch_validation_loss.append(curr_epoch_validation_loss)
 
-    pickle.dump(model, open(f'models/vanilla/{epoch}_{iter-1}_{curr_epoch_validation_loss}.pkl', 'wb'))
+    pickle.dump(model, open(f'models/{rnn_type}/{epoch}_{iter-1}_{curr_epoch_validation_loss}.pkl', 'wb'))
 
     random.shuffle(training_data)
 
-  pickle.dump(epoch_validation_loss, open(f'graph/vanilla/epoch_vs_validation.pkl', 'wb'))
-  pickle.dump(epoch_loss, open(f'graph/vanilla/epoch_vs_losses.pkl', 'wb'))
+  pickle.dump(epoch_validation_loss, open(f'graph/{rnn_type}/epoch_vs_validation.pkl', 'wb'))
+  pickle.dump(epoch_loss, open(f'graph/{rnn_type}/epoch_vs_losses.pkl', 'wb'))
