@@ -48,8 +48,10 @@ Below graphs show the trend of loss(training andd validation) vs epochs:
   * LSTM: In the whole para, the model is talking about "Nero".
   * GRU: Since GRU hasn't convergered yet, so it is hard to conclude. But it can be seen that whole para seems to talk about the famous "Kakori incident" [ref](https://en.wikipedia.org/wiki/Kakori_conspiracy)
 
-<img src="https://github.com/suprasauce/RNN/blob/main/plots/vanilla.png" height="400" width="330"> <img src="https://github.com/suprasauce/RNN/blob/main/plots/lstm.png" height="400" width="330">
-<img src="https://github.com/suprasauce/RNN/blob/main/plots/gru.png" height="400" width="330">
+
+![]("https://github.com/suprasauce/RNN/blob/main/plots/vanilla.png")
+![]("https://github.com/suprasauce/RNN/blob/main/plots/lstm.png")
+![]("https://github.com/suprasauce/RNN/blob/main/plots/gru.png")
 
 # Requirements
 * python 3.10+
@@ -67,6 +69,6 @@ Below graphs show the trend of loss(training andd validation) vs epochs:
 
 # Acknowledgement
 
-* Shout out to Andrej karpathy for igniting interest for RNN's through this (blog)[https://karpathy.github.io/2015/05/21/rnn-effectiveness/]
-* The OG (d2l)[https://d2l.ai/]
+* Shout out to Andrej karpathy for igniting interest for RNN's through this [blog](https://karpathy.github.io/2015/05/21/rnn-effectiveness/)
+* The OG [d2l](https://d2l.ai/)
 * StackOverflow
