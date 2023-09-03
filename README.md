@@ -19,8 +19,11 @@ I tried to keep the archtecture of the 3 models as similar as possible. The spec
 The context length(the length of the english sequences fed into the model) is 100 and no truncated bptt is used here. The activation funtions are used as usual, nothing fancy.
 
 ## Training
-I used sliding window approach to create sequences. So there were around 33k total sequences. All the models were trained for 10 epochs on the training data. The training data was split into training data(95%) and validaiton data(5%).
-Stochastic gradient descent was used as a training algorithm with no batch processng. The learning rate was kept fixed at '0.1' throughout the whole training.
+* Data Preparation: A sliding window approach is used to create sequences, resulting in around 33,000 total sequences.
+* Splitting Data: The training data is split into training (95%) and validation (5%) datasets.
+* Optimization: Stochastic Gradient Descent (SGD) is used as the training algorithm without batch processing.
+* Learning Rate: The learning rate is kept fixed at '0.1' throughout the training process.
+* Epochs: All models are trained for 10 epochs on the training data.
 
 ## Prediction Stage
 The models which had the lowest validation loss were selected for the prediction stage. Below is the output for the respective models based on the seed value ```I am a very```:
