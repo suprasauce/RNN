@@ -49,9 +49,9 @@ Below graphs show the trend of loss(training andd validation) vs epochs:
   * GRU: Since GRU hasn't convergered yet, so it is hard to conclude. But it can be seen that whole para seems to talk about the famous "Kakori incident" [ref](https://en.wikipedia.org/wiki/Kakori_conspiracy)
 
 
-![]("https://github.com/suprasauce/RNN/blob/main/plots/vanilla.png")
-![]("https://github.com/suprasauce/RNN/blob/main/plots/lstm.png")
-![]("https://github.com/suprasauce/RNN/blob/main/plots/gru.png")
+![](https://github.com/suprasauce/RNN/blob/main/plots/vanilla.png)
+![](https://github.com/suprasauce/RNN/blob/main/plots/lstm.png)
+![](https://github.com/suprasauce/RNN/blob/main/plots/gru.png)
 
 # Requirements
 * python 3.10+
