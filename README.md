@@ -34,6 +34,35 @@ The models which had the lowest validation loss were selected for the prediction
 * GRU
   * ```I am a very consoinced and eangerviponecation and nome or do in the hald be discussed, you even he shall be the revolutionary party. The famous Kakori martyrs all foorom to be conversative st an atheist. If indes discussion? Ho secother in the punted of the refutted in the mythology and the rwsof the exploited to comple. the pribe the vast michtal theories courares an atheist. Aeght the oppon of the revolutionary party. The famous Kakori martyrs all four of therefore to some is another of the whole pride in their prigimed to chility all the litumest to God throwilited to moyine ever pulitions upon might. That is all mysticism. WheAm I denired failed a devoted very serious believe on the scoped to disbelieve in God is another of peace and enjoyment and implain toind are the doint that olso partionary Chress as force mentth. In the social as on he mak stated a derring the mutters of the theory of pery.```
 
-<img src="https://github.com/suprasauce/RNN/blob/main/plots/vanilla.png" height="400" width="512">
-<img src="https://github.com/suprasauce/RNN/blob/main/plots/lstm.png" height="400" width="512">
-<img src="https://github.com/suprasauce/RNN/blob/main/plots/gru.png" height="400" width="512">
+## Thoughts
+Below graphs show the trend of loss(training andd validation) vs epochs:
+* The loss of Vanilla RNN seems to decrease the fastest during initial epochs.
+* Vanilla RNN seems to converge at a higher loss than LSTM.
+* GRU performed the worst for the 10 epochs, however it shows declining trend and needs more training. This is weird in the sense that GRU is the simplified version of LSTM, while LSTM converges faster.
+* Comparison of predictions:
+  * Vanila RNN: It is quite evident from the predictin above that Vanilla RNN cant keep up with the context due to vanishing gradient problem. It initially starts talking about "Nero" [ref](https://en.wikipedia.org/wiki/Nero). But then shifts the topic to a different context.
+  * LSTM: In the whole para, the model is talking about "Nero".
+  * GRU: Since GRU hasn't convergered yet, so it is hard to conclude. But it can be seen that whole para seems to talk about the famous "Kakori incident" [ref](https://en.wikipedia.org/wiki/Kakori_conspiracy)
+
+<img src="https://github.com/suprasauce/RNN/blob/main/plots/vanilla.png" height="400" width="330"> <img src="https://github.com/suprasauce/RNN/blob/main/plots/lstm.png" height="400" width="330">
+<img src="https://github.com/suprasauce/RNN/blob/main/plots/gru.png" height="400" width="330">
+
+# Requirements
+* python 3.10+
+* pytorch 2.0.1+
+* For nvidia graphics card, cuda (if you want GPU acclearation)
+* pickle
+* matplotlib
+
+# Run
+```main.py``` is the starting point.
+
+# Problems with implementation
+* not flexible in adding more layers
+* no batch processing
+
+# Acknowledgement
+
+* Shout out to Andrej karpathy for igniting interest for RNN's through this (blog)[https://karpathy.github.io/2015/05/21/rnn-effectiveness/]
+* The OG (d2l)[https://d2l.ai/]
+* StackOverflow
