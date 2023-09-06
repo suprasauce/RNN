@@ -5,6 +5,12 @@ trained using SGD technique. Pytorch was used in order to perform compute on GPU
 was to serve as a learning resource for understanding the inner workings of RNNs and compare performance
 of different members of the RNN family.
 
+Well, char RNN is not at all efficient:
+* During training process, I was ouptputing predictions. What I saw is that the model first learns spaces and then learns to make words and then context. So one can see that our main task which is char prediction on basis of context is performed at last.
+* In order to have good predictions, we need the context be very long. However when compared to word prediction , for char predcition we need a lot of context. Please note that having a long context can be computationally expensive.
+* Embeddings can't be performed on only characters, as individual characters basically have no relationship between them. However words can have relationship between them making out training efficient and helping our model to find meaning about the input.
+* For ex: when doing sentiment analsis, if we trained RNN on only "Movie was great" and after a while we give "Movie was awesome". The model will not be able to give a good result on the latter. Because I have used one hot encoding. However if I use word embeddings like "word2vec" then "great" and "awesome" will have similar embeddings and can give good results on the later even if was not given in the training process.
+
 # Dataset
 The models were trained on a small text data of ~32 kB. The dataset can be found [here](https://www.marxists.org/archive/bhagat-singh/1930/10/05.htm)
 
