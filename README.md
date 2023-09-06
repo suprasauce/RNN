@@ -19,8 +19,15 @@ I tried to keep the archtecture of the 3 models as similar as possible. The spec
 The context length(the length of the english sequences fed into the model) is 100 and no truncated bptt is used here. The activation funtions are used as usual, nothing fancy.
 
 ## Training
-I used sliding window approach to create sequences. So there were around 33k total sequences. All the models were trained for 10 epochs on the training data. The training data was split into training data(95%) and validaiton data(5%).
-Stochastic gradient descent was used as a training algorithm with no batch processng. The learning rate was kept fixed at '0.1' throughout the whole training.
+* Data Preparation: A sliding window approach is used to create sequences, resulting in around 33,000 total sequences.
+* Splitting Data: The training data is split into training (95%) and validation (5%) datasets.
+* Optimization: Stochastic Gradient Descent (SGD) is used as the training algorithm without batch processing.
+* Learning Rate: The learning rate is kept fixed at '0.1' throughout the training process.
+* Epochs: All models are trained for 10 epochs on the training data.
+
+## Untrained Model ouput 👁️
+* Seed value is ```"I am a very"```
+  * ```I am a veryz4.oW9W9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9oW9W9Wu9```
 
 ## Prediction Stage
 The models which had the lowest validation loss were selected for the prediction stage. Below is the output for the respective models based on the seed value ```I am a very```:
@@ -31,6 +38,37 @@ The models which had the lowest validation loss were selected for the prediction
 * GRU
   * ```I am a very consoinced and eangerviponecation and nome or do in the hald be discussed, you even he shall be the revolutionary party. The famous Kakori martyrs all foorom to be conversative st an atheist. If indes discussion? Ho secother in the punted of the refutted in the mythology and the rwsof the exploited to comple. the pribe the vast michtal theories courares an atheist. Aeght the oppon of the revolutionary party. The famous Kakori martyrs all four of therefore to some is another of the whole pride in their prigimed to chility all the litumest to God throwilited to moyine ever pulitions upon might. That is all mysticism. WheAm I denired failed a devoted very serious believe on the scoped to disbelieve in God is another of peace and enjoyment and implain toind are the doint that olso partionary Chress as force mentth. In the social as on he mak stated a derring the mutters of the theory of pery.```
 
-<img src="https://github.com/suprasauce/RNN/blob/main/plots/vanilla.png" height="400" width="512">
-<img src="https://github.com/suprasauce/RNN/blob/main/plots/lstm.png" height="400" width="512">
-<img src="https://github.com/suprasauce/RNN/blob/main/plots/gru.png" height="400" width="512">
+## Thoughts
+Below graphs show the trend of loss(training andd validation) vs epochs:
+* The loss of Vanilla RNN seems to decrease the fastest during initial epochs.
+* Vanilla RNN seems to converge at a higher loss than LSTM.
+* GRU performed the worst for the 10 epochs, however it shows declining trend and needs more training. This is weird in the sense that GRU is the simplified version of LSTM, while LSTM converges faster.
+* Comparison of predictions:
+  * Vanila RNN: It is quite evident from the predictin above that Vanilla RNN cant keep up with the context due to vanishing gradient problem. It initially starts talking about "Nero" [ref](https://en.wikipedia.org/wiki/Nero). But then shifts the topic to a different context.
+  * LSTM: In the whole para, the model is talking about "Nero".
+  * GRU: Since GRU hasn't convergered yet, so it is hard to conclude. But it can be seen that whole para seems to talk about the famous "Kakori incident" [ref](https://en.wikipedia.org/wiki/Kakori_conspiracy)
+
+
+![](https://github.com/suprasauce/RNN/blob/main/plots/vanilla.png)
+![](https://github.com/suprasauce/RNN/blob/main/plots/lstm.png)
+![](https://github.com/suprasauce/RNN/blob/main/plots/gru.png)
+
+# Requirements
+* python 3.10+
+* pytorch 2.0.1+
+* For nvidia graphics card, cuda (if you want GPU acclearation)
+* pickle
+* matplotlib
+
+# Run
+```main.py``` is the starting point.
+
+# Problems with implementation
+* not flexible in adding more layers
+* no batch processing
+
+# Acknowledgement
+
+* Shout out to Andrej karpathy for igniting interest for RNN's through this [blog](https://karpathy.github.io/2015/05/21/rnn-effectiveness/)
+* The OG [d2l](https://d2l.ai/)
+* StackOverflow
