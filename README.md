@@ -10,6 +10,7 @@ Well, char RNN is not at all efficient:
 * In order to have good predictions, we need the context be very long. However when compared to word prediction , for char predcition we need a lot of context. Please note that having a long context can be computationally expensive.
 * Embeddings can't be performed on only characters, as individual characters basically have no relationship between them. However words can have relationship between them making out training efficient and helping our model to find meaning about the input.
 * For ex: when doing sentiment analsis, if we trained RNN on only "Movie was great" and after a while we give "Movie was awesome". The model will not be able to give a good result on the latter. Because I have used one hot encoding. However if I use word embeddings like "word2vec" then "great" and "awesome" will have similar embeddings and can give good results on the later even if was not given in the training process.
+* Morever why we need our model to learn words, if we already have a dictionary for that. 
 
 # Dataset
 The models were trained on a small text data of ~32 kB. The dataset can be found [here](https://www.marxists.org/archive/bhagat-singh/1930/10/05.htm)
